@@ -50,12 +50,6 @@ for root, dirs, files in os.walk(DATA_FOLDER):
                 dataset_dict["nwpd"].append(np.mean(nwpd))
                 dataset_dict["rse"].append(np.mean(rse))
                 dataset_dict["audio"].append(audio.split("-")[0])
-                # if audio.split("-")[0] == "noise":
-                #     dataset_dict["audio"].append("r")  # RED -> NOISE
-                # elif audio.split("-")[0] == "music":
-                #     dataset_dict["audio"].append("g")  # GREEN -> MUSIC
-                # elif audio.split("-")[0] == "speech":
-                #     dataset_dict["audio"].append("b")  # BLUE -> SPEECH
                 index += sampling_rate * WINDOW_LENGTH
                 # if index == 5*sampling_rate*WINDOW_LENGTH:
                 #    break

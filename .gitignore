@@ -1,8 +1,6 @@
 __pycache__
 .idea/
 src/data
-.ipynb_checkpoints/
-=======
-__pycache__/
-.idea/
+!src/data/**/*.npy
+!src/data/**/*.json
 .ipynb_checkpoints/
