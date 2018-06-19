@@ -10,8 +10,8 @@ from sklearn.tree import _tree
 import json
 
 
-EXTRACTED_FEATURES_NUMPY_FILE = "/Users/siva/Documents/speaker_recognition/numpy_files/voice_activity_detection_test_mar_15.npy"
-JSON_FILE_PATH = "/Users/siva/Documents/speaker_recognition/"
+EXTRACTED_FEATURES_NUMPY_FILE = "voice_activity_detection_test_mar_15.npy"
+JSON_FILE_PATH = "/"
 JSON_FILE_NAME = "voice_activity_detection.json"
 
 def load_data():
