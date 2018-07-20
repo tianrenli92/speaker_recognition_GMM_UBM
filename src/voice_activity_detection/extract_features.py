@@ -12,12 +12,12 @@ import copy
 class extract_features(object):
     def __init__(self, window, frame_length, sampling_rate, frame_step=10):
         self.window = np.array(window, dtype=np.float32)
+        self.window[self.window==0]=1
         self.frame_length = frame_length
         self.frame_step = frame_step
         self.sampling_rate = sampling_rate
         self.frames = []
         self.split_frames()
-
 
     def split_frames(self):
         samples_per_frame = int((self.frame_length * (10 ** -3)) * self.sampling_rate)
@@ -31,13 +31,14 @@ class extract_features(object):
         # print(temp_count)
 
     def rms(self):
-        self.rms=np.sqrt(np.mean(np.square(self.window)))
+        self.rms = np.sqrt(np.mean(np.square(self.window)))
 
-    def se(self): #spectral_entropy
-        fft_window = np.absolute(np.fft.fft(self.window, n=512))
+    def se(self):  # spectral_entropy
+        hanning_window=self.window*np.hanning(len(self.window))
+        fft_window = np.absolute(np.fft.fft(hanning_window, n=512))
         window_freq = np.fft.fftfreq(512, d=(1 / self.sampling_rate))
         self.window_fft_norm = fft_window[window_freq > 0] / (np.sum(fft_window[window_freq > 0]))
-        self.se=-sum(np.log(self.window_fft_norm**2))
+        self.se = -sum(self.window_fft_norm * np.log(self.window_fft_norm))
 
     def zcr(self):
         dummy_1 = copy.deepcopy(self.window)
@@ -75,6 +76,7 @@ class extract_features(object):
             # frames_freq = np.fft.fftfreq(len(frame),d = (1/self.sampling_rate))[1:]
             frames_freq = np.fft.fftfreq(512, d=(1 / self.sampling_rate))[1:]
             fft_frame_norm = fft_frame[1:][frames_freq > 0] / (np.sum(abs(fft_frame[1:][frames_freq > 0])))
+
             self.frames_fft_norm.append(fft_frame_norm)
             self.frames_freq_bins.append(frames_freq[frames_freq > 0])
             self.frames_phase_angle_bins.append(phase_angle[frames_freq > 0])
@@ -83,12 +85,8 @@ class extract_features(object):
 
     def spectral_flux(self):
         self.spectral_flux = []
-        for frame_index in range(len(self.frames)):
-            test = copy.deepcopy(self.frames_fft_norm[frame_index])
-            test = np.insert(test, len(test), 1)
-            test_1 = copy.deepcopy(self.frames_fft_norm[frame_index])
-            test_1 = np.insert(test_1, 0, 1)
-            self.spectral_flux.append(np.sum((test - test_1)[1:-1] ** 2))
+        for frame_index in range(1, len(self.frames)):
+           self.spectral_flux.append(np.sum((self.frames_fft_norm[frame_index] - self.frames_fft_norm[frame_index-1])** 2))
         # plt.scatter(np.arange(len(self.frames)),self.spectral_flux)
 
     def spectral_rolloff(self):
