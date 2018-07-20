@@ -63,8 +63,5 @@ for root, dirs, files in os.walk(DATA_FOLDER):
 features_df = pd.DataFrame.from_dict(features_dict)
 features_df = features_df[feature_name]
 
-
-if __name__ == "__main__":
-    features_df = create_dataset(DATA_FOLDER)
-    with open(join(DATA_FOLDER, "features_df_1s.pickle"), "wb") as file:
-        pickle.dump(features_df, file)
+with open(join(DATA_FOLDER, "features_df_1s.pickle"), "wb") as file:
+    pickle.dump(features_df, file)
