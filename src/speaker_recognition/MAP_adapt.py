@@ -7,6 +7,7 @@ Created on Sat Jan 20 23:12:30 2018
 import numpy as np
 import csv
 from utils import unit_gaussian
+import pickle
 
 def map_adaptation(args):
     print("loading the required files...")
@@ -28,7 +29,7 @@ def map_adaptation(args):
     cov_k = ubm["cov"]
     pi_k = ubm["pi"]
     
-    with open(args.csv_file) as f_data:
+    with open(args.mfcc_file) as f_data:
         reader_data = csv.reader(f_data)
         for i,each_data in enumerate(reader_data):
             if i == N:

@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn import tree
 
 DATA = join(dirname(dirname(abspath(__file__))), 'data', 'testwav','0713','features_df_1s.pickle')
-MODEL = join(dirname(dirname(abspath(__file__))), 'data', 'noise-train','model_tree_1s_bal.pickle')
+MODEL = join(dirname(dirname(abspath(__file__))), 'data', 'noise-train','model_tree_1s_bal_def.pickle')
 
 with open(DATA, "rb") as file:
     test_df=pickle.load(file)

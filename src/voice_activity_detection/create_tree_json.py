@@ -5,8 +5,8 @@ import pickle
 import numpy as np
 
 FOLDER = join(dirname(dirname(abspath(__file__))), 'data', 'noise-train')
-MODEL = join(FOLDER, 'model_tree_1s.pickle')
-JSON_FILE = join(FOLDER, 'model_tree_1s.json')
+MODEL = join(FOLDER, 'model_tree_1s_bal_5.pickle')
+JSON_FILE = join(FOLDER, 'model_tree_1s_bal_5.json')
 feature_names = "ZCR,LEFR,SF,SF_std,SRF,SRF_std,SC,SC_std,BW,BW_std,NWPD,NWPD_std,RSE,RSE_std".split(",")
 
 with open(MODEL, "rb") as file:
